@@ -1,8 +1,8 @@
-var express = require("express");
-var { graphqlHTTP } = require("express-graphql");
-var { buildSchema } = require("graphql");
+const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const { buildSchema } = require("graphql");
 
-var schema = buildSchema(`
+const schema = buildSchema(`
   type User {
     id: String
     name: String
@@ -26,7 +26,7 @@ var schema = buildSchema(`
 
 `);
 
-var fakeDatabase:any = {
+const fakeDatabase:any = {
   a: {
     id: "a",
     name: "nameA",
@@ -37,7 +37,7 @@ var fakeDatabase:any = {
   },
 };
 
-var root = {
+const root = {
   user: ({input}: {input: { id: keyof typeof fakeDatabase }}): (typeof fakeDatabase)["a"] => {
     return fakeDatabase[input?.id];
   },
@@ -47,7 +47,7 @@ var root = {
   }
 };
 
-var app = express();
+const app = express();
 app.use(
   "/graphql",
   graphqlHTTP({
